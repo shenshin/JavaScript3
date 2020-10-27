@@ -1,0 +1,40 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background-color: #333;
+}
+#page-container {
+  margin: 5% auto;
+  margin-bottom: 10%;
+  width: 50%;
+  background-color: #4c4c4c;
+}
+#image-container {
+  list-style: none;
+}
+.dog-image {
+  width: 100%;
+  background-color: chocolate;
+}
+#buttons-container {
+  height: 3rem;
+  background-color: #272727;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+button {
+  height: 2rem;
+  width: 30%;
+  color: rgb(196, 196, 196);
+  background-color: #646464;
+  outline: none;
+  cursor: pointer;
+}
+@media screen and (max-width: 650px) {
+  #page-container {
+    width: 100%;
+  }
+}
