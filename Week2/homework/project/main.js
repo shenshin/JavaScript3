@@ -1,24 +1,19 @@
-// references to html-elements
-let reposSelect; // select - in the header
-let repoDetails; // section with currently selected repo details
-let contributorsCards; // placeholder for divs with contributors' cards
-
 // fills <select> field with repo names from an array of repos objects
-const createOptions = arrayOfObjects => {
+const createOptions = ({ node, reposArray }) => {
   // sort repo names in alphabetical order
-  arrayOfObjects.sort((a, b) =>
+  reposArray.sort((a, b) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1,
   );
-  arrayOfObjects.forEach((object, index) => {
+  reposArray.forEach((object, index) => {
     const option = document.createElement('option');
     option.value = index;
     option.innerHTML = object.name;
-    reposSelect.appendChild(option);
+    node.appendChild(option);
   });
 };
 
 // adds contributor's card to the page
-const addCard = contributor => {
+const addCard = ({ node, contributor }) => {
   const card = document.createElement('div');
   card.className = 'contributors-card';
   card.innerHTML = `
@@ -32,13 +27,13 @@ const addCard = contributor => {
     ${contributor.contributions}
   </div>
   `;
-  contributorsCards.appendChild(card);
+  node.appendChild(card);
 };
 
 // adds repository information on the page
-const addRepoDetails = repoObject => {
+const addRepoDetails = ({ node, repoObject }) => {
   // assignment: Recreate all the HTML elements using JavaScript
-  repoDetails.innerHTML = `
+  node.innerHTML = `
   <table>
     <tr>
       <td>
@@ -83,13 +78,13 @@ const showError = error => {
 };
 
 // When the repository-specific has been fetched, populate the right columns: contributors and repository details.
-const addContributorsCards = url => {
-  contributorsCards.innerHTML = '';
+const addContributorsCards = ({ node, url }) => {
+  node.innerHTML = '';
   fetch(url)
     .then(data => data.json())
     .then(contributors => {
       contributors.forEach(contributor => {
-        addCard(contributor);
+        addCard({ node, contributor });
       });
     })
     .catch(err => showError(err));
@@ -115,25 +110,31 @@ const main = () => {
     </main>
   </div>
   `;
-  reposSelect = document.querySelector('header select');
-  repoDetails = document.querySelector('.repo-details');
-  contributorsCards = document.querySelector('.contributors-cards');
+  const reposSelect = document.querySelector('header select');
+  const repoDetails = document.querySelector('.repo-details');
+  const contributorsCards = document.querySelector('.contributors-cards');
 
   // assignment: Populate the <select> with options. Use the data fetched from the GitHub API, using this URL:
   fetch('https://api.github.com/orgs/HackYourFuture/repos?per_page=100')
     .then(data => data.json())
     .then(data => {
       // fill select field in the header with options
-      createOptions(data);
+      createOptions({ node: reposSelect, reposArray: data });
       // fill the details of currently selected repository
       const firstRepo = data[reposSelect.value];
-      addRepoDetails(firstRepo);
-      addContributorsCards(firstRepo.contributors_url);
+      addRepoDetails({ node: repoDetails, repoObject: firstRepo });
+      addContributorsCards({
+        node: contributorsCards,
+        url: firstRepo.contributors_url,
+      });
       // When a user changes the option in the <select> tag, listen to that "change" event and make an HTTP Request to the GitHub API to get repository-specific data.
       reposSelect.addEventListener('change', event => {
         const selectedRepo = data[event.target.value];
-        addRepoDetails(selectedRepo);
-        addContributorsCards(selectedRepo.contributors_url);
+        addRepoDetails({ node: repoDetails, repoObject: selectedRepo });
+        addContributorsCards({
+          node: contributorsCards,
+          url: selectedRepo.contributors_url,
+        });
       });
     })
     .catch(err => showError(err));
