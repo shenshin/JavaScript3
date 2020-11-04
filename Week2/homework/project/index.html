@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hack Your Repo</title>
+    <link rel="stylesheet" href="./CSS/style.css" />
+  </head>
+  <body>
+    <div id="page-container">
+      <header>
+        <p>HYF&nbsp;Repositories</p>
+        <select></select>
+      </header>
+      <main>
+        <section id="repo-details">
+          <table>
+            <tr>
+              <td>
+                Repository:
+              </td>
+              <td id="repo-details-repository"></td>
+            </tr>
+            <tr>
+              <td>
+                Description:
+              </td>
+              <td id="repo-details-description"></td>
+            </tr>
+            <tr>
+              <td>
+                Forks:
+              </td>
+              <td id="repo-details-forks"></td>
+            </tr>
+            <tr>
+              <td>
+                Updated:
+              </td>
+              <td id="repo-details-updated"></td>
+            </tr>
+          </table>
+        </section>
+        <section id="contributors">
+          <div id="contributors-header">
+            Contributors
+          </div>
+          <div id="contributors-cards"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./main.js"></script>
+  </body>
+</html>
