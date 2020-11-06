@@ -24,7 +24,7 @@ Instantiate those classes to create an Abdulkareem object and Adel object
 enum RelationsState {
   husband = 'man',
   wife = 'wife',
-  child = 'child',
+  child = 'kid',
   parent = 'parent',
   pet = 'pet',
   owner = 'owner',
@@ -32,15 +32,22 @@ enum RelationsState {
 
 // types of organisms participating in the story
 enum Species {
-  human = 'human',
+  human = 'man',
   horse = 'horse',
+}
+
+// sets the type of some variables, method parameters and
+// methods return type describing interconnections between creatures
+interface Interconnection {
+  with: Creature;
+  status: RelationsState;
 }
 
 // general structure of orgamisms
 abstract class Creature {
   readonly species: Species;
   // all other creatures that have relations with the current
-  interconnections: { creature: Creature; status: RelationsState }[] = [];
+  interconnections: Interconnection[] = [];
   // optionals
   dateOfBirth?: Date;
   hairColor?: string;
@@ -52,13 +59,9 @@ abstract class Creature {
   // gets relation status between 'this' and 'creature' in parameter
   getRelation(creature: Creature): RelationsState | null {
     const interconnection = this.interconnections.find(
-      i => i.creature === creature,
+      i => i.with === creature,
     );
     return interconnection !== undefined ? interconnection.status : null;
-  }
-  // add a creature to the interconnections of 'this'
-  addInterconnection(creature: Creature, status: RelationsState) {
-    this.interconnections.push({ creature, status });
   }
   // getters for different information about an organizm
   get age(): number {
@@ -73,7 +76,11 @@ abstract class Creature {
   protected getCreatures(state: RelationsState): Creature[] {
     return this.interconnections
       .filter(relative => relative.status === state)
-      .map(relative => relative.creature);
+      .map(relative => relative.with);
+  }
+  // add a creature to the interconnections of 'this'
+  addInterconnection({ with: creature, status: status }: Interconnection) {
+    this.interconnections.push({ with: creature, status: status });
   }
   // class method connecting two instances of Creature class
   // by setting relation states
@@ -83,8 +90,8 @@ abstract class Creature {
     status1: RelationsState,
     status2: RelationsState = status1,
   ) {
-    creature1.addInterconnection(creature2, status2);
-    creature2.addInterconnection(creature1, status1);
+    creature1.addInterconnection({ with: creature2, status: status2 });
+    creature2.addInterconnection({ with: creature1, status: status1 });
   }
 }
 
