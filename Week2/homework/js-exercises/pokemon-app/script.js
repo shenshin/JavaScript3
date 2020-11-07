@@ -7,10 +7,6 @@
 
 // Create 3 functions: fetchData, addPokemonToDOM and main
 
-let button;
-let selectElement;
-let image;
-
 // In the fetchData function, make use of fetch and its Promise syntax in order to get the data from the public API
 
 async function fetchData(url) {
@@ -22,15 +18,17 @@ async function fetchData(url) {
   }
 }
 
-function addPokemonToDOM(pokemons) {
+function addPokemonToDOM(select, image, pokemons) {
+  // sort pokemons alphabeticaly
+  pokemons.sort((a, b) => (a.name > b.name ? 1 : -1));
   pokemons.forEach((pokemon, index) => {
     const option = document.createElement('option');
     option.value = index;
     option.innerText = pokemon.name;
-    selectElement.appendChild(option);
+    select.appendChild(option);
   });
-  selectElement.style.cursor = 'pointer';
-  selectElement.addEventListener('change', event => {
+  select.style.cursor = 'pointer';
+  select.addEventListener('change', event => {
     fetchData(pokemons[event.target.value].url).then(data => {
       image.src = data.sprites.front_default;
     });
@@ -41,23 +39,22 @@ function addPokemonToDOM(pokemons) {
 
 function main() {
   const pokemonsURL = 'https://pokeapi.co/api/v2/pokemon?offset=150&limit=150';
-  button = document.createElement('button');
+  const button = document.createElement('button');
   button.innerHTML = 'Get Pokemon!';
-  button.addEventListener('click', () => {
-    fetchData(pokemonsURL).then(pokemons => {
-      addPokemonToDOM(pokemons.results);
-    });
-  });
   button.style.cursor = 'pointer';
-  selectElement = document.createElement('select');
-  image = document.createElement('img');
-  [button, selectElement, image].forEach(element => {
+  const select = document.createElement('select');
+  const image = document.createElement('img');
+  [button, select, image].forEach(element => {
     element.style.display = 'block';
     element.style.margin = '2rem 1rem';
     document.body.appendChild(element);
   });
+  button.addEventListener('click', () => {
+    fetchData(pokemonsURL).then(pokemons => {
+      addPokemonToDOM(select, image, pokemons.results);
+    });
+  });
 }
 
 // Execute the main function when the window has finished loading
-
-main();
+window.addEventListener('load', main);
