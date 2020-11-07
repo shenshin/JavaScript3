@@ -10,9 +10,16 @@ In this exercise you'll make use of the Open Trivia Database API. You are going 
 const triviaURL = 'https://opentdb.com/api.php?amount=5';
 
 async function fetchTrivia(url) {
-  const response = await fetch(url);
-  const trivia = await response.json();
-  return trivia.results;
+  let result;
+  try {
+    const response = await fetch(url);
+    const trivia = await response.json();
+    result = trivia.results;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error.message);
+  }
+  return result;
 }
 
 /* 
@@ -54,8 +61,9 @@ function addQuestionToNode(node, record) {
   answerNode.addEventListener('click', expand);
 }
 
-fetchTrivia(triviaURL).then(trivia => {
-  const trivaHolder = document.getElementById('trivia-collection');
+const trivaHolder = document.getElementById('trivia-collection');
+const promise = fetchTrivia(triviaURL);
+promise.then(trivia => {
   trivia.forEach(record => {
     addQuestionToNode(trivaHolder, record);
   });
