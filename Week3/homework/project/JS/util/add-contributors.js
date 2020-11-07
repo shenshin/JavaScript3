@@ -4,8 +4,8 @@ import { showError } from './show-error.js';
 
 /**
  * Requests contributors information for the selected repository
- * @param {*} node cards placeholder
- * @param {*} url selected repository URL
+ * @param {HTMLElement} node cards placeholder
+ * @param {string} url selected repository URL
  */
 export function addContributors(node, url) {
   node.innerHTML = '';

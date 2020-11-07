@@ -1,7 +1,7 @@
 /**
  * Adds a contributor's card to the page
- * @param {*} node cards placeholder
- * @param {*} contributor
+ * @param {HTMLElement} node cards placeholder
+ * @param {object} contributor
  */
 export function addCard(node, contributor) {
   const card = document.createElement('div');
