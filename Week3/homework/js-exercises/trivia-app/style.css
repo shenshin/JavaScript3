@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 1.2rem;
+}
+body {
+  color: #030056;
+  font-family: monospace;
+  font-weight: 500;
+}
+.trivia {
+  padding: 1rem;
+  cursor: pointer;
+}
+.trivia-question {
+  background-color: #e6e6e6;
+  border-bottom: 1px solid #d3d3d3;
+}
+.trivia-question:nth-last-child(2) {
+  border-bottom: none;
+}
+.trivia-question:hover {
+  background-color: #b6b6b6;
+}
+.trivia-question,
+.trivia-question:hover {
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-out;
+}
+.trivia-answer {
+  background-color: #e3faf6;
+  display: none;
+}
