@@ -1,0 +1,40 @@
+/* eslint-disable import/extensions */
+// Create a separate .js for every function you create
+// Import all top-level functions into the script.js file to execute when the window has loaded
+import { addDetails } from './util/add-details.js';
+import { displayHTML } from './util/display-html.js';
+import { showError } from './util/show-error.js';
+import { createOptions } from './util/create-options.js';
+import { addContributors } from './util/add-contributors.js';
+
+/**
+ * Creates HTML page showing HackYourFuture repositories and contributors
+ */
+function main() {
+  displayHTML();
+  const reposSelect = document.querySelector('header select');
+  const repoDetails = document.querySelector('.repo-details');
+  const contributorsCards = document.querySelector('.contributors-cards');
+
+  // assignment: Populate the <select> with options. Use the data fetched from the GitHub API, using this URL:
+  fetch('https://api.github.com/orgs/HackYourFuture/repos?per_page=100')
+    .then(data => data.json())
+    .then(data => {
+      // fill select field in the header with options
+      createOptions(reposSelect, data);
+      // fill the details of currently selected repository
+      const firstRepo = data[reposSelect.value];
+      addDetails(repoDetails, firstRepo);
+      addContributors(contributorsCards, firstRepo.contributors_url);
+      // When a user changes the option in the <select> tag, listen to that "change" event and make an HTTP Request to the GitHub API to get repository-specific data.
+      reposSelect.addEventListener('change', event => {
+        const selectedRepo = data[event.target.value];
+        addDetails(repoDetails, selectedRepo);
+        addContributors(contributorsCards, selectedRepo.contributors_url);
+      });
+    })
+    .catch(err => showError(err));
+}
+
+// Create a main function that will execute all of your functions only when the window has fully loaded
+window.addEventListener('load', main);
