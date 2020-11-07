@@ -30,7 +30,7 @@ async function getData2(url) {
 getData2(randomImage);
 
 // Exercise B ####################################
-const arrayOfWords = [4, 'tomatos', 'avocado'];
+const arrayOfWords = ['pomodores', 'tomatos', 'avocado'];
 
 // promise syntax
 const makeAllCaps = array => {
