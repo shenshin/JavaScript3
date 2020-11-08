@@ -32,10 +32,10 @@ function getAnonName(firstName) {
   });
 }
 
-const promise = getAnonName('John');
-promise.then(value => {
-  console.log(value);
-});
-promise.catch(error => {
-  console.error(error);
-});
+getAnonName('John')
+  .then(value => {
+    console.log(value);
+  })
+  .catch(error => {
+    console.error(error);
+  });

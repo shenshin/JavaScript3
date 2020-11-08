@@ -9,13 +9,10 @@
 
 // In the fetchData function, make use of fetch and its Promise syntax in order to get the data from the public API
 
-async function fetchData(url) {
-  try {
-    const response = await fetch(url);
-    return await response.json();
-  } catch (error) {
-    return alert(error);
-  }
+function fetchData(url) {
+  return fetch(url)
+    .then(response => response.json())
+    .catch(error => alert(error));
 }
 
 function addPokemonToDOM(select, image, pokemons) {
