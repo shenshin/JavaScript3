@@ -13,7 +13,8 @@ export function displayHTML() {
       <section class="repo-details"></section>
       <section class="contributors">
         <div class="contributors-header">
-          Contributors
+          <span>Contributors</span>
+          <span id="pagination"></span>
         </div>
         <div class="contributors-cards"></div>
       </section>

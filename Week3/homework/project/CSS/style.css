@@ -94,8 +94,13 @@ main section {
 /* header */
 .contributors-header {
   padding: 0.8rem 0 1rem 0;
+  display: flex;
+  justify-content: space-around;
   border-bottom: 1px solid var(--border);
   color: var(--light-text);
+}
+.page-number {
+  cursor: pointer;
 }
 /* cards */
 .contributors-card {

@@ -5,7 +5,7 @@ import { addDetails } from './util/add-details.js';
 import { displayHTML } from './util/display-html.js';
 import { showError } from './util/show-error.js';
 import { createOptions } from './util/create-options.js';
-import { addContributors } from './util/add-contributors.js';
+import { fetchContributors } from './util/fetch-contributors.js';
 
 /**
  * Creates HTML page showing HackYourFuture repositories and contributors
@@ -25,12 +25,12 @@ function main() {
       // fill the details of currently selected repository
       const firstRepo = data[reposSelect.value];
       addDetails(repoDetails, firstRepo);
-      addContributors(contributorsCards, firstRepo.contributors_url);
+      fetchContributors(contributorsCards, firstRepo.contributors_url);
       // When a user changes the option in the <select> tag, listen to that "change" event and make an HTTP Request to the GitHub API to get repository-specific data.
       reposSelect.addEventListener('change', event => {
         const selectedRepo = data[event.target.value];
         addDetails(repoDetails, selectedRepo);
-        addContributors(contributorsCards, selectedRepo.contributors_url);
+        fetchContributors(contributorsCards, selectedRepo.contributors_url);
       });
     })
     .catch(err => showError(err));
