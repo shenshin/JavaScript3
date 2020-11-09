@@ -14,7 +14,6 @@ function main() {
   displayHTML();
   const reposSelect = document.querySelector('header select');
   const repoDetails = document.querySelector('.repo-details');
-  const contributorsCards = document.querySelector('.contributors-cards');
 
   // assignment: Populate the <select> with options. Use the data fetched from the GitHub API, using this URL:
   fetch('https://api.github.com/orgs/HackYourFuture/repos?per_page=100')
@@ -25,12 +24,12 @@ function main() {
       // fill the details of currently selected repository
       const firstRepo = data[reposSelect.value];
       addDetails(repoDetails, firstRepo);
-      fetchContributors(contributorsCards, firstRepo.contributors_url);
+      fetchContributors(firstRepo.contributors_url);
       // When a user changes the option in the <select> tag, listen to that "change" event and make an HTTP Request to the GitHub API to get repository-specific data.
       reposSelect.addEventListener('change', event => {
         const selectedRepo = data[event.target.value];
         addDetails(repoDetails, selectedRepo);
-        fetchContributors(contributorsCards, selectedRepo.contributors_url);
+        fetchContributors(selectedRepo.contributors_url);
       });
     })
     .catch(err => showError(err));

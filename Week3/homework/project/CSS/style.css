@@ -95,12 +95,22 @@ main section {
 .contributors-header {
   padding: 0.8rem 0 1rem 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   border-bottom: 1px solid var(--border);
   color: var(--light-text);
+  font-weight: 200;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.page-number {
+.page-number,
+.page-number-active {
   cursor: pointer;
+}
+.page-number-active {
+  font-weight: 400;
+  border-bottom: 1px solid var(--headers-dark-text);
 }
 /* cards */
 .contributors-card {

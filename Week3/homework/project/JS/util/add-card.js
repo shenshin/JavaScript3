@@ -1,7 +1,7 @@
 /**
  * Adds a contributor's card to the page
  * @param {HTMLElement} node cards placeholder
- * @param {object} contributor
+ * @param {object} contributor information about a HYF contributor
  */
 export function addCard(node, contributor) {
   const card = document.createElement('div');

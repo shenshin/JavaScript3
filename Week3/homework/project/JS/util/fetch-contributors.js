@@ -5,14 +5,13 @@ import { showPagination } from './show-pagination.js';
 
 /**
  * Requests contributors information for the selected repository
- * @param {HTMLElement} node cards placeholder
  * @param {string} url selected repository URL
  */
-export function fetchContributors(node, url) {
+export function fetchContributors(url) {
   fetch(url)
     .then(data => data.json())
     .then(contributors => {
-      showPagination(node, contributors, 0);
+      showPagination(contributors);
     })
     .catch(err => showError(err));
 }
