@@ -9,6 +9,9 @@ import { showPagination } from './show-pagination.js';
  */
 export function fetchContributors(url) {
   fetchDetails(url).then(contributors => {
+    contributors.sort((a, b) =>
+      a.login.toLowerCase() > b.login.toLowerCase() ? 1 : -1,
+    );
     showPagination(contributors);
   });
 }

@@ -112,6 +112,12 @@ main section {
   font-weight: 400;
   border-bottom: 1px solid var(--headers-dark-text);
 }
+.pagination-one-page {
+  justify-content: flex-start;
+}
+.pagination-many-pages {
+  justify-content: space-around;
+}
 /* cards */
 .contributors-card {
   padding: 0.7rem 1rem;

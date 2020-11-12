@@ -39,7 +39,8 @@ export function showPagination(contributors, pageToShow = 0) {
   // show pagination in the top of contributors section
   // if the number of pages is more than one
   if (numberOfPages > 1) {
-    header.style.justifyContent = 'space-around';
+    header.classList.remove('pagination-one-page');
+    header.classList.add('pagination-many-pages');
 
     // draw left arrow
     addPageLink(
@@ -64,7 +65,8 @@ export function showPagination(contributors, pageToShow = 0) {
 
     // don't show pagination if there's only one page
   } else {
-    header.style.justifyContent = 'flex-start';
+    header.classList.add('pagination-one-page');
+    header.classList.remove('pagination-many-pages');
   }
   // show contributors for the current repository
   showCards(cardsPerPage, pageToShow, contributors);
