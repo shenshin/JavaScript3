@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 // import { addCard } from './add-card.js';
-import { showError } from './show-error.js';
+import { fetchDetails } from './fetch-details.js';
 import { showPagination } from './show-pagination.js';
 
 /**
@@ -8,12 +8,9 @@ import { showPagination } from './show-pagination.js';
  * @param {string} url selected repository URL
  */
 export function fetchContributors(url) {
-  fetch(url)
-    .then(data => data.json())
-    .then(contributors => {
-      showPagination(contributors);
-    })
-    .catch(err => showError(err));
+  fetchDetails(url).then(contributors => {
+    showPagination(contributors);
+  });
 }
 
 export default fetchContributors;
