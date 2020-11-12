@@ -79,8 +79,8 @@ abstract class Creature {
       .map(relative => relative.with);
   }
   // add a creature to the interconnections of 'this'
-  addInterconnection({ with: creature, status: status }: Interconnection) {
-    this.interconnections.push({ with: creature, status: status });
+  addInterconnection(creature: Interconnection): void {
+    this.interconnections.push(creature);
   }
   // class method connecting two instances of Creature class
   // by setting relation states
@@ -89,7 +89,7 @@ abstract class Creature {
     creature2: Creature,
     status1: RelationsState,
     status2: RelationsState = status1,
-  ) {
+  ): void {
     creature1.addInterconnection({ with: creature2, status: status2 });
     creature2.addInterconnection({ with: creature1, status: status1 });
   }
